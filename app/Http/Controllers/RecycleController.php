@@ -41,7 +41,7 @@ class RecycleController extends Controller
         $recycle = new Recycle($request->all());
         $recycle->user_id = $request->user()->id;
         $file = $request->file('image');
-        $recycle->image = date('YmdHis') . '_' . $file->getClientOriginalName();
+        $recycle->image = self::createFileName($file);
 
         // トランザクション開始
         DB::beginTransaction();
@@ -113,7 +113,7 @@ class RecycleController extends Controller
         $file = $request->file('image');
         if ($file) {
             $delete_file_path = 'images/recycles/' . $recycle->image;
-            $recycle->image = date('YmdHis') . '_' . $file->getClientOriginalName();
+            $recycle->image = self::createFileName($file);
         }
         $recycle->fill($request->all());
 
@@ -159,5 +159,10 @@ class RecycleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private static function createFileName($file)
+    {
+        return date('YmdHis') . '_' . $file->getClientOriginalName();
     }
 }
