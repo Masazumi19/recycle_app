@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Recycle::class);
     }
+
+        public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

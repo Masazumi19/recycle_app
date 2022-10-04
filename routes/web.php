@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecycleController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,9 @@ Route::resource('recycles', RecycleController::class)
 
 Route::resource('recycles', RecycleController::class) //
     ->only(['show', 'index']);
+
+Route::resource('recycles.comments', CommentController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('auth');
 
 require __DIR__ . '/auth.php';
