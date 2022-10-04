@@ -122,8 +122,22 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Recycle $recycle, Comment $comment)
     {
-        //
+        // トランザクション開始
+        DB::beginTransaction();
+        try {
+            $comment->delete();
+
+            // トランザクション終了(成功)
+            DB::commit();
+        } catch (\Exception $e) {
+            // トランザクション終了(失敗)
+            DB::rollback();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()->route('recycles.show', $recycle)
+            ->with('notice', 'コメントを削除しました');
     }
 }
