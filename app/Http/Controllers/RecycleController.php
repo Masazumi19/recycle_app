@@ -78,9 +78,10 @@ class RecycleController extends Controller
      */
     public function show($id)
     {
-        $recycle = Recycle::find($id);
+        $recycle = Recycle::with(['user'])->find($id);
+        $comments = $recycle->comments()->latest()->get()->load(['user']);
 
-        return view('recycles.show', compact('recycle'));
+        return view('recycles.show', compact('recycle', 'comments'));
     }
 
     /**
