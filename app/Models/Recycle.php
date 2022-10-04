@@ -24,7 +24,12 @@ class Recycle extends Model
 
     public function getImageUrlAttribute()
     {
-        return Storage::url('images/recycles/' . $this->image); //
+        return Storage::url($this->image_path);
+    }
+
+    public function getImagePathAttribute()
+    {
+        return 'images/recycles/' . $this->image;
     }
 }
 
