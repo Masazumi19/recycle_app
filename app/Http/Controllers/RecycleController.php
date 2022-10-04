@@ -17,7 +17,9 @@ class RecycleController extends Controller
      */
     public function index()
     {
-        return view('Recycles.index');
+        $recycles = Recycle::with('user')->latest()->paginate(2);
+
+        return view('recycles.index', compact('recycles'));
     }
 
     /**
