@@ -83,9 +83,12 @@ class RecycleController extends Controller
     public function show($id)
     {
         $recycle = Recycle::with(['user'])->find($id);
+        $categories = Category::find($id);
         $comments = $recycle->comments()->latest()->get()->load(['user']);
 
         return view('recycles.show', compact('recycle', 'comments'));
+
+        
     }
 
     /**
@@ -99,7 +102,7 @@ class RecycleController extends Controller
         $categories = Category::all();
         $recycle = Recycle::find($id);
 
-        return view('recycles.edit', compact('recycle'));
+        return view('recycles.edit', compact('recycle', 'categories'));
     }
 
     /**

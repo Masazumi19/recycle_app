@@ -11,6 +11,7 @@
                 {{ $recycle->title }}
             </h2>
             <h3>{{ $recycle->user->name }}</h3>
+            <p >カテゴリ：：{{ $recycle->category->category}}</p>
             <p class="text-sm mb-2 md:text-base font-normal text-gray-600">
                 <span
                     class="text-red-400 font-bold">{{ date('Y-m-d H:i:s', strtotime('-1 day')) < $recycle->created_at ? 'NEW' : '' }}</span>
@@ -65,9 +66,14 @@
                             </form>
                         @endcan
                     </div>
+                    {{-- <button type="submit" name="action" value="back">戻る</button> --}}
                 </div>
                 <hr>
             @endforeach
+        <a class="rounded-md bg-gray-800 text-white px-4 py-2" href="{{ route('recycles.index') }}">一覧へ戻る</a>
         </section>
+            
     </div>
 </x-app-layout>
+
+
