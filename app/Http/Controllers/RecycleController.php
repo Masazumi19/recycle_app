@@ -7,6 +7,7 @@ use App\Http\Requests\RecycleRequest;
 use App\Models\Recycle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Category;
 
 class RecycleController extends Controller
 {
@@ -29,7 +30,9 @@ class RecycleController extends Controller
      */
     public function create()
     {
-        return view('recycles.create');
+        $categories = Category::all();
+        return view('recycles.create', compact('categories')); 
+        // なぜコンパクトにしなければいけないかを復習
     }
 
     /**
@@ -44,6 +47,7 @@ class RecycleController extends Controller
         $recycle->user_id = $request->user()->id;
         $file = $request->file('image');
         $recycle->image = self::createFileName($file);
+        $recycle->category_id = $request->category;
 
         // トランザクション開始
         DB::beginTransaction();
@@ -91,7 +95,8 @@ class RecycleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   
+        $categories = Category::all();
         $recycle = Recycle::find($id);
 
         return view('recycles.edit', compact('recycle'));
@@ -107,6 +112,7 @@ class RecycleController extends Controller
     public function update(RecycleRequest $request, $id)
     {
         $recycle = Recycle::find($id);
+        $recycle->category_id = $request->category_id;
 
         if ($request->user()->cannot('update', $recycle)) {
             return redirect()->route('recycles.show', $recycle)

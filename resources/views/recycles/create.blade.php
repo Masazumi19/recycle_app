@@ -15,12 +15,21 @@
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
                     required placeholder="タイトル" value="{{ old('title') }}">
             </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm mb-2" for="category">カテゴリー</label>
+                @foreach ($categories as $category)
+                    <p><input type="radio" name="category" value="{{ $category->id }}" {{ old("category") == $category->id ? "checked" : "" }} >{{ $category->category }}</p>
+                @endforeach
+            </div>
+
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="image">
                     ブログ用画像
                 </label>
                 <input type="file" name="image" class="border-gray-300">
             </div>
+
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="body">
                     本文
@@ -29,10 +38,12 @@
                     class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
                     required>{{ old('body') }}</textarea>
             </div>
+            
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm mb-2" for="price">
                 </label>
-                <input type=”number” name="price" min="0" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
+                <input type=”number” name="price" min="0"
+                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full py-2 px-3"
                     required placeholder="希望価格" value="{{ old('price') }}">
             </div>
             <input type="submit" value="登録"
