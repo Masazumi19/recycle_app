@@ -1,0 +1,14 @@
+.search_item {
+    display: inline-block;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.search_item.is-active {
+    color: white;
+    background-color: black;
+}
+
+.is-hide {
+    display: none;
+}

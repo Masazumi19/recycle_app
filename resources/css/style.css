@@ -1,0 +1,77 @@
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.targets {
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(auto-fit, 60px);
+  margin-top: 40px;
+}
+.circle, .square {
+  width: 60px;
+  height: 60px;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+}
+.circle {
+  border-radius: 50%;
+}
+.blue {
+  background-color: #B8DBF6;
+  border: 1px solid #5ABEED;
+}
+.green {
+  background-color: #C8F8D1;
+  border: 1px solid #64D994;
+}
+.red {
+  background-color: #FAD6D7
+}
+[value="All"]:checked ~ .targets [data-category] {
+  display: block;
+}
+[value="Blue"]:checked ~ .targets .target:not([data-category~="Blue"]), 
+[value="Green"]:checked ~ .targets .target:not([data-category~="Green"]), 
+[value="Red"]:checked ~ .targets .target:not([data-category~="Red"]), 
+[value="Square"]:checked ~ .targets .target:not([data-category~="Square"]), 
+[value="Circle"]:checked ~ .targets .target:not([data-category~="Circle"]) {
+  display: none;
+}
+/*  ラジオボタンを非表示に */
+input[type="radio"] {
+  position: absolute;
+  left: -9999px;
+}
+/*  以下はラベルのスタイル */
+.filters {
+  margin-bottom: 2rem;
+}
+.filters * {
+  display: inline-block;
+}
+.filters label {
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.25rem;
+  min-width: 50px;
+  line-height: normal;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filters label:hover {
+  background: #333;
+  color: #fff;
+}
+[value="All"]:checked ~ .filters [for="All"], 
+[value="Blue"]:checked ~ .filters [for="Blue"], 
+[value="Green"]:checked ~ .filters [for="Green"], 
+[value="Red"]:checked ~ .filters [for="Red"], 
+[value="Square"]:checked ~ .filters [for="Square"], 
+[value="Circle"]:checked ~ .filters [for="Circle"] {
+  background: #333;
+  color: #fff;
+}

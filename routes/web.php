@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RecycleController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [RecycleController::class, 'index'])
+        ->name('root');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+Route::resource('recycles', RecycleController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('auth');// ポリシーとこれは何が違うのか？
+
+Route::resource('recycles', RecycleController::class) //
+    ->only(['show', 'index']);
+
+Route::resource('recycles.comments', CommentController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('auth');
+
+require __DIR__ . '/auth.php';
