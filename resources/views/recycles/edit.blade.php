@@ -22,9 +22,9 @@
                     カテゴリー
                 </label>
                 @foreach ($categories as $category)
-                    <div><lavel>
+                    <div><label>
                         <input type="radio" name="category_id" id="category{{ $category->id }}" value="{{ $category->id }}" {{ old('category_id', $recycle->category_id) == $category->id ? 'checked': '' }}>
-                            {{ $category->category }}</lavel>  <!--なぜここをlavelで囲っても文字が反応しないのか-->
+                            {{ $category->category }}</label>  <!--なぜここをlavelで囲っても文字が反応しないのか-->
                         <!--<label for="category{{ $category->id }}">{{ $category->name }}</label>-->
                     </div>
                 @endforeach
